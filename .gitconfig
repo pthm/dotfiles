@@ -1,0 +1,42 @@
+[user]
+	name = Patt-Tom McDonnell
+	email = contact@mcdonnell.pt
+	signingkey = ~/.ssh/id_ed25519.pub
+[core]
+	autocrlf = input
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+	sort = version:refname
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[init]
+	defaultBranch = main
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
+[push]
+	default = simple
+	autoSetupRemote = true
+	followTags = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[credential]
+	helper = cache --timeout=3600
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential

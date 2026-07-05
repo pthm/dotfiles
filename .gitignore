@@ -1,0 +1,47 @@
+# ~/.gitignore — safety net for the dotfiles bare repo (work-tree = $HOME).
+#
+# Nothing in $HOME is tracked unless you explicitly `dotfiles add` it
+# (status.showUntrackedFiles=no). These patterns are a second line of defence
+# so a stray `dotfiles add` can never sweep in secrets or noise.
+# Rule of thumb: always `dotfiles add` explicit paths, never `dotfiles add .`.
+
+# ── Secrets — never commit ───────────────────────────────
+.ssh/id_*
+.ssh/*_rsa
+.ssh/*_ed25519
+.ssh/known_hosts*
+.ssh/allowed_signers
+!.ssh/*.pub
+*.pem
+*.key
+*.p12
+.env
+.env.*
+.netrc
+.authinfo*
+
+# ── Claude Code — track only config, never runtime/history ──
+# (sessions/history/cache may contain sensitive conversation data)
+.claude/*
+!.claude/CLAUDE.md
+!.claude/settings.json
+!.claude/commands
+!.claude/agents
+
+# ── macOS noise ──────────────────────────────────────────
+.DS_Store
+.CFUserTextEncoding
+.Trash/
+
+# ── Big / machine-local dirs (never dotfiles) ────────────
+Library/
+Applications/
+Downloads/
+Movies/
+Music/
+Pictures/
+.cache/
+.local/
+.npm/
+.cargo/
+.rustup/

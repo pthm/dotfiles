@@ -1,0 +1,19 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[user]
+name = "Patt-Tom McDonnell"
+email = "contact@mcdonnell.pt"
+
+[signing]
+behavior = "own"
+backend = "ssh"
+key = "~/.ssh/id_ed25519.pub"
+
+[signing.backends.ssh]
+allowed-signers = "~/.ssh/allowed_signers"
+
+[git]
+private-commits = '''description(glob:'private:*')'''
+
+[ui]
+pager = "moor"
