@@ -17,6 +17,19 @@ watchexec = "latest"
 "cargo:ck-search" = "latest"
 "npm:@openai/codex" = "latest"
 
+# build / release (moved from Brewfile)
+just = "latest"
+task = "latest" # go-task
+goreleaser = "latest"
+pre-commit = "latest"
+
+# kubernetes / cloud (moved from Brewfile)
+helm = "latest"
+kubectx = "latest"
+kubens = "latest"
+cloud-sql-proxy = "latest"
+gcloud = "latest" # was the gcloud-cli cask; vfox plugin pulls the full Cloud SDK
+
 # go tooling
 "go:golang.org/x/tools/gopls" = "latest"
 "go:mvdan.cc/gofumpt" = "latest"
