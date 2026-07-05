@@ -15,8 +15,11 @@ else
     mise activate fish --shims | source
 end
 
-# Theming (rose-pine/fish plugin, installed via fisher)
-fish_config theme choose "Rosé Pine"
+# Theming (rose-pine/fish plugin, installed via fisher).
+# Guard so a fresh machine (theme not installed until fisher runs) doesn't error.
+if fish_config theme list 2>/dev/null | string match -q "Rosé Pine"
+    fish_config theme choose "Rosé Pine"
+end
 
 # OrbStack
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :

@@ -26,7 +26,8 @@ brew "git-lfs"
 # ── Security / signing ──
 brew "gnupg"
 brew "pinentry-mac"
-brew "openssh"
+# NOTE: no brew "openssh" — it shadows Apple's ssh/ssh-add on PATH and breaks
+# macOS Keychain integration (--apple-use-keychain / UseKeychain are Apple-only).
 
 # ── Data / media ──
 brew "libpq", link: true # psql & friends without a local server; see postgresql@18 below if you want the server

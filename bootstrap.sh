@@ -54,7 +54,9 @@ fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/fun
 step "SSH key"
 mkdir -p "$HOME/.ssh"; chmod 700 "$HOME/.ssh"
 [ -f "$SSH_KEY" ] || ssh-keygen -t ed25519 -a 100 -C "$GIT_EMAIL" -f "$SSH_KEY"
-ssh-add --apple-use-keychain "$SSH_KEY"
+# Apple's ssh-add explicitly — --apple-use-keychain is macOS-only and Homebrew's
+# openssh (if present) doesn't support it.
+/usr/bin/ssh-add --apple-use-keychain "$SSH_KEY"
 printf '%s namespaces="git" %s\n' "$GIT_EMAIL" "$(cat "$SSH_PUB")" > "$HOME/.ssh/allowed_signers"
 chmod 600 "$HOME/.ssh/allowed_signers"
 
@@ -82,7 +84,7 @@ git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" \
 
 # 10. Verify
 step "verify GitHub SSH auth"
-ssh -o StrictHostKeyChecking=accept-new -T git@github.com || true
+/usr/bin/ssh -o StrictHostKeyChecking=accept-new -T git@github.com || true
 
 echo
 echo "Done. Open a new terminal to land in fish."
