@@ -27,16 +27,18 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # 3. Packages & apps (sign into the App Store first for the mas entries)
 step "brew bundle"
-brew bundle --file="$HOME/Brewfile"
+brew bundle --file="$HOME/Brewfile" \
+  || echo "   WARN: some Brewfile entries failed (mas apps need App Store sign-in) — continuing"
 
 # 4. Dev toolchains
 step "mise toolchains"
 mise trust "$HOME/.config/mise/config.toml" 2>/dev/null || true
-mise install --yes
+mise install --yes || echo "   WARN: some mise tools failed to install — continuing"
 
 # 5. Fish plugins (fisher + tide + rose-pine, from ~/.config/fish/fish_plugins)
 step "fish plugins"
-fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update'
+fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher update' \
+  || echo "   WARN: fisher/plugin step failed — continuing"
 
 # 6. SSH key → Keychain, and allowed_signers for local verification
 step "SSH key"
@@ -50,7 +52,8 @@ chmod 600 "$HOME/.ssh/allowed_signers"
 step "default shell → fish"
 FISH="$(command -v fish)"
 grep -qx "$FISH" /etc/shells || echo "$FISH" | sudo tee -a /etc/shells >/dev/null
-[ "$(dscl . -read "/Users/$USER" UserShell 2>/dev/null | awk '{print $2}')" = "$FISH" ] || chsh -s "$FISH"
+[ "$(dscl . -read "/Users/$USER" UserShell 2>/dev/null | awk '{print $2}')" = "$FISH" ] \
+  || chsh -s "$FISH" || echo "   WARN: could not set fish as default shell — continuing"
 
 # 8. GitHub auth + upload auth & signing keys
 step "GitHub auth"
