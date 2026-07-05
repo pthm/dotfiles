@@ -14,6 +14,16 @@ SSH_KEY="$HOME/.ssh/id_ed25519"
 SSH_PUB="$SSH_KEY.pub"
 step() { printf '\n\033[1;34m==> %s\033[0m\n' "$1"; }
 
+# 0. Ensure the bare dotfiles repo ignores untracked $HOME files, so
+#    `dotfiles status` stays clean even if it was cloned without that flag.
+#    The `dotfiles` command itself is a fish function tracked at
+#    ~/.config/fish/functions/dotfiles.fish (auto-loaded by fish). For bash/zsh:
+#      alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+if [ -d "$HOME/.dotfiles" ]; then
+  step "dotfiles repo config"
+  git --git-dir="$HOME/.dotfiles" --work-tree="$HOME" config status.showUntrackedFiles no || true
+fi
+
 # 1. Xcode command-line tools
 xcode-select -p >/dev/null 2>&1 || xcode-select --install || true
 
