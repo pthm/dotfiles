@@ -60,4 +60,7 @@ cask "visual-studio-code"
 cask "zed"
 
 # ── App Store ──
-mas "Xcode", id: 497799835
+# Guarded by a file check: on a fresh machine Spotlight hasn't indexed App Store
+# apps yet, so `mas list` comes back empty and bundle re-downloads all of Xcode
+# on every run even when it's already installed.
+mas "Xcode", id: 497799835 unless File.directory?("/Applications/Xcode.app")

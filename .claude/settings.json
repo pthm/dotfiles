@@ -1,4 +1,5 @@
 {
+  "model": "claude-fable-5[1m]",
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
@@ -15,6 +16,6 @@
   },
   "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
-  "agentPushNotifEnabled": true,
-  "model": "claude-fable-5[1m]"
+  "theme": "dark",
+  "agentPushNotifEnabled": true
 }
